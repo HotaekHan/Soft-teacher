@@ -1,0 +1,39 @@
+data:
+  train: data/coco_trainval35k.json
+  valid: data/coco_minival5k.json
+  unlabeled: data/coco_unlabel2017.json
+#  train: data/coco_sample.json
+#  valid: data/coco_sample.json
+#  unlabeled: data/coco_val2017.json
+basenet:
+  arch: Res50
+  pretrained: True
+  lr_backbone: 1e-4
+optimizer:
+  which: Adam
+  lr: 1e-4
+  weight_decay: 1e-4
+params:
+  batch_size: 8
+  epoch: 30
+  random_seed: 3000
+  image_size: 320x320 #rowsxcols
+  classes: data/coco_classes.txt
+  data_worker: 0
+soft_teacher:
+  pseudo_cls_th: 0.9
+  unsup_loss_weight: 1.0
+  ema_decay: 0.99
+inference:
+#  batch_size: 12
+#  image_size: 640x640 #rowsxcols
+  cls_th: 0.05
+  nms_th: 0.5
+  top_k: 1000
+model:
+  model_path: None
+  exp_path: /data/projects/object_detection/soft_teacher/tmp
+  is_finetune: False
+cuda:
+  using: True
+  gpu_id: 0
